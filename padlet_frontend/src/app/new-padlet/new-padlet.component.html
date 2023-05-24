@@ -1,0 +1,26 @@
+<mat-dialog-content>
+<h2>Füge eine neues Padlet hinzu! </h2>
+<p>Wie soll es heißen?</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Name">
+  </mat-form-field>
+
+  <h3>Tierauswahl</h3>
+  <mat-radio-group formControlName="animal">
+    <mat-radio-button value="cat">Katze</mat-radio-button>
+    <mat-radio-button value="dog">Hund</mat-radio-button>
+    <mat-radio-button value="donkey">Esel</mat-radio-button>
+    <mat-radio-button value="elephant">Elefant</mat-radio-button>
+  </mat-radio-group>
+
+  <h3>Privat</h3>
+  <mat-checkbox formControlName="private">Privat</mat-checkbox>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Create</button>
+  </mat-dialog-actions>
+</form>
+</mat-dialog-content>

@@ -1,0 +1,17 @@
+<mat-dialog-content>
+  <h2 mat-dialog-title>Please Enter your Email and your Password</h2>
+  <form [formGroup]="loginForm" (submit)="login()">
+    <mat-form-field>
+      <mat-label for="email">Email</mat-label>
+      <input matInput formControlName="email" type="email" id="email" name="email" placeholder="Enter your email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="password">Password</mat-label>
+      <input matInput formControlName="password" type="password" id="password" name="password" placeholder="Enter your password">
+    </mat-form-field>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

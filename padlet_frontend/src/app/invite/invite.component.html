@@ -1,0 +1,11 @@
+<mat-dialog-content>
+  <h2 mat-dialog-title>Invite per Email:</h2>
+<form [formGroup]="inviteForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input formControlName="email" matInput placeholder="Email">
+    <mat-error *ngIf="inviteForm.controls.email.invalid">Please enter a valid email</mat-error>
+  </mat-form-field>
+  <button mat-button type="submit">Invite</button>
+</form>
+</mat-dialog-content>

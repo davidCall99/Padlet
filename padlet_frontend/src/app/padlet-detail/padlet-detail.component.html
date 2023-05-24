@@ -1,0 +1,44 @@
+<div class="main-padlets">
+  <div class="meta-daten">
+  <h2>Padlet: {{ padlet.name }}</h2>
+    <img class="image" *ngIf="padlet.url!= null && padlet.url!= '.png'" [src]="'./assets/images/' + padlet.url" alt="Image of {{ padlet.name }}" />
+  <p>Erstellt am: {{padlet.created_at| date :'shortDate'}}</p>
+  <div class="creator">Created by {{ padlet.creator }}</div>
+  </div>
+  <div class="main-entries">
+  <div *ngFor="let entry of padlet.entries" class="entry-container">
+
+    <p>{{ entry.content }} <span class="user_id"> created by {{entry.creator}}</span>
+      <br><span *ngIf="averageRating(entry)!= 0" class="rating"> Average Rating: {{ averageRating(entry) }}  <mat-icon *ngIf="isLoggedIn()" (click)="openNewRatingDialog(entry)">add</mat-icon></span>
+      <span *ngIf="averageRating(entry)== 0" class="rating"> Average Rating: no Ratings yet <span ><mat-icon  (click)="openNewRatingDialog(entry)">add</mat-icon></span></span>
+    </p>
+
+    <!-- Kommentare anzeigen -->
+    <div class="comments-container">
+      <div *ngFor="let comment of entry.comments" class="comment-container">
+        <p>{{ comment.content}} </p>
+        <span class="written-by">written by: {{comment.creator}}</span>
+        <button *ngIf="isLoggedIn()" class="delete-btn-entry" (click)="deleteComment(comment.id)" mat-raised-button >Delete</button>
+      </div>
+    </div>
+    <div class="action-padlet">
+    <button mat-raised-button color="warn" *ngIf="isLoggedIn()" (click)="deleteEntry(entry.id)">Delete</button>
+    <button mat-raised-button class="add-btn" *ngIf="isLoggedIn()" (click)="openNewCommentDialog(entry)"> Add EntryComment</button>
+    <button mat-raised-button class="add-btn" *ngIf="isLoggedIn()" (click)="openUpdateEntryDialog(entry)"> Update Entry</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<button *ngIf="isLoggedIn()" mat-fab class="fab-button" (click)="openNewEntryDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+ <button *ngIf="isLoggedIn()" mat-raised-button color="warn" class="delete-padlet" (click)="deletePadlet()">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+<div *ngIf="isLoggedIn()" class="user-info">
+  <button (click)="logout()"><mat-icon>logout</mat-icon></button>
+  <p>{{user.name}}</p>
+</div>

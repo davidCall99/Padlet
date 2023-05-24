@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Eintrag bearbeiten</h2>
+<div mat-dialog-content>
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <textarea matInput placeholder="Inhalt" formControlName="content"></textarea>
+      <mat-error *ngIf="entryForm.get('content')?.invalid">
+        Bitte geben Sie einen Inhalt ein.
+      </mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close>Abbrechen</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="entryForm.invalid">Aktualisieren</button>
+    </div>
+  </form>
+</div>

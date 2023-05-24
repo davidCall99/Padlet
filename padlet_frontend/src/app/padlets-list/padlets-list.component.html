@@ -1,0 +1,108 @@
+<h2 class="header">Public Padlets</h2>
+<div class="main-padlets">
+
+<div *ngFor="let padlet of publicPadlets" class="padlet-container">
+  <div class="meta-daten">
+  <h2>{{ padlet.name }}</h2>
+  <p>Erstellt am: {{padlet.created_at| date :'shortDate'}}</p>
+  </div>
+  <div class="action-button-container">
+    <button *ngIf="isLoggedIn()" mat-mini-fab color="primary" (click)="openNewEntryDialog(padlet)">
+      <mat-icon >add</mat-icon>
+    </button>
+  </div>
+  <!-- Einträge anzeigen -->
+  <div class="entries-container">
+    <div *ngFor="let entry of padlet.entries" class="entry-container">
+      <p>{{ entry.content }}  <span class="user_id"> created by {{entry.creator}}</span></p>
+      <button class="delete-btn-entry"  *ngIf="isLoggedIn()"mat-raised-button (click)="deleteEntry(padlet.id, entry.id, false)">Delete</button>
+    </div>
+  </div>
+
+  <!-- Ersteller anzeigen -->
+  <div class="creator">Created by {{ padlet.creator }}</div>
+
+  <!-- Bild anzeigen -->
+  <img *ngIf="padlet.url!= null" [src]="'./assets/images/' + padlet.url" alt="Image of {{ padlet.name }}" />
+  <div class="action-padlet">
+  <button   *ngIf="isLoggedIn()" mat-raised-button color="warn" (click)="deletePadlet(padlet.id,false)">Delete</button>
+  <button mat-raised-button [routerLink]="['/padlet', padlet.id]"> View Detail</button>
+  </div>
+
+</div>
+</div>
+<h2  *ngIf="isLoggedIn()" class="header">Privat Padlets</h2>
+<div class="main-padlets">
+
+  <div *ngFor="let padlet of privatePadlets" class="padlet-container">
+    <div class="meta-daten">
+      <h2>{{ padlet.name }}</h2>
+      <p>Erstellt am: {{padlet.created_at| date :'shortDate'}}</p>
+    </div>
+    <div class="action-button-container">
+      <button mat-mini-fab color="primary" (click)="openNewEntryDialog(padlet)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <!-- Einträge anzeigen -->
+    <div class="entries-container">
+      <div *ngFor="let entry of padlet.entries" class="entry-container">
+        <p>{{ entry.content }}  <span class="user_id"> created by {{entry.creator}}</span></p>
+        <button class="delete-btn-entry" mat-raised-button (click)="deleteEntry(padlet.id, entry.id,true )">Delete</button>
+      </div>
+    </div>
+
+    <!-- Ersteller anzeigen -->
+    <div class="creator">Created by {{ padlet.creator }}</div>
+
+    <!-- Bild anzeigen -->
+    <img *ngIf="padlet.url!= null && padlet.url!= '.png'"[src]="'./assets/images/' + padlet.url" alt="Image of {{ padlet.name }}" />
+    <div class="action-padlet">
+      <button  mat-raised-button color="warn" (click)="deletePadlet(padlet.id,true)">Delete</button>
+      <button mat-raised-button [routerLink]="['/padlet', padlet.id]"> View Detail</button>
+      <button mat-button (click)="openInviteDialog(padlet.id)">Invite</button>
+    </div>
+
+  </div>
+</div>
+<h2  *ngIf="isLoggedIn()" class="header">Shared Padlets</h2>
+<div class="main-padlets">
+
+  <div *ngFor="let padlet of sharedPadlets" class="padlet-container">
+    <div class="meta-daten">
+      <h2>{{ padlet.name }}</h2>
+      <p>Erstellt am: {{padlet.created_at| date :'shortDate'}}</p>
+    </div>
+    <div class="action-button-container">
+      <button *ngIf="isLoggedIn()" mat-mini-fab color="primary" (click)="openNewEntryDialog(padlet)">
+        <mat-icon >add</mat-icon>
+      </button>
+    </div>
+    <!-- Einträge anzeigen -->
+    <div class="entries-container">
+      <div *ngFor="let entry of padlet.entries" class="entry-container">
+        <p>{{ entry.content }}  <span class="user_id"> created by {{entry.creator}}</span></p>
+      </div>
+    </div>
+
+    <!-- Ersteller anzeigen -->
+    <div class="creator">Created by {{ padlet.creator }}</div>
+
+    <!-- Bild anzeigen -->
+    <img *ngIf="padlet.url!= null && padlet.url!= '.png'"[src]="'./assets/images/' + padlet.url" alt="Image of {{ padlet.name }}" />
+    <div class="action-padlet">
+      <button mat-raised-button [routerLink]="['/padlet', padlet.id, 'view-only']"> View Detail</button>
+    </div>
+
+  </div>
+</div>
+
+<button *ngIf="isLoggedIn()"  mat-fab class="fab-button" (click)="openNewPadletDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+
+<div *ngIf="isLoggedIn()" class="user-info">
+  <button (click)="logout()"><mat-icon>logout</mat-icon></button>
+  <p>{{user.name}}</p>
+</div>
+

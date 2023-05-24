@@ -1,0 +1,15 @@
+<mat-dialog-content>
+<form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+  <h1 class="mat-h1">Add new rating</h1>
+  <mat-form-field>
+    <mat-label>Rating zwischen 1 und 5</mat-label>
+    <input  min="1" max="5" type="number" matInput formControlName="rating">
+    <mat-error *ngIf="ratingForm.controls['rating'].invalid">
+      Please provide a rating
+    </mat-error>
+  </mat-form-field>
+  <mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+  </mat-dialog-actions>
+</form>
+</mat-dialog-content>
